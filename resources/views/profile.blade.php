@@ -23,12 +23,16 @@
                         <h5><strong>EMAIL:</strong>{{Auth::user()->email}}</h5>
                       </div>
                       <div class="col-6 border-left border-success pb-4">
-                        @if (Auth::user()->userprofile)
-                            <img src="" alt="">
+                        <h3>Profile Image</h3>
+                        <div>
+                          @if (Auth::user()->userprofile)
+                            <img class="figure-img img-fluid rounded" style="max-height:100px;" src="{{Auth::user()->userprofile->image}}" alt="">
                         @else
                           <p>No profile image uploade!</p>
                         @endif
-                        <h3>Profile Image</h3>
+                        </div>
+                        
+                        
                         <a href="{{route('userprofile.create')}}">Upload profile image</a>
                       </div>
                       <div class="col-12 border-top border-success pt-3">
