@@ -1,5 +1,9 @@
 <template>
-    <form method="POST" enctype="multipart/form-data">
+    <form
+        method="POST"
+        enctype="multipart/form-data"
+        @submit.prevent="profileUpload"
+    >
         <div class="custom-file">
             <input
                 type="file"
@@ -41,6 +45,16 @@ export default {
             reader.onload = e => {
                 this.imagepreview = e.target.result;
             };
+        },
+        profileUpload() {
+            let data = new FormData();
+            data.append("image", this.image);
+            axios
+                .post("../userprofile", data)
+                .then(() => {
+                    window.location = "../profile";
+                })
+                .catch(() => {});
         }
     }
 };

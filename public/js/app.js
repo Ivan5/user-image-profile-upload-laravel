@@ -1934,6 +1934,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1952,6 +1956,13 @@ __webpack_require__.r(__webpack_exports__);
       reader.onload = function (e) {
         _this.imagepreview = e.target.result;
       };
+    },
+    profileUpload: function profileUpload() {
+      var data = new FormData();
+      data.append("image", this.image);
+      axios.post("../userprofile", data).then(function () {
+        window.location = "../profile";
+      })["catch"](function () {});
     }
   }
 });
@@ -37604,7 +37615,15 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "form",
-    { attrs: { method: "POST", enctype: "multipart/form-data" } },
+    {
+      attrs: { method: "POST", enctype: "multipart/form-data" },
+      on: {
+        submit: function($event) {
+          $event.preventDefault()
+          return _vm.profileUpload($event)
+        }
+      }
+    },
     [
       _c("div", { staticClass: "custom-file" }, [
         _c("input", {

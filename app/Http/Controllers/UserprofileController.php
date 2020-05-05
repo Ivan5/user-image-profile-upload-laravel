@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Userprofile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserprofileController extends Controller
 {
@@ -35,7 +36,22 @@ class UserprofileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
+        ]);
+
+        $image = request()->file('image');
+        $imageName = $image->getClientOriginalName();
+        $imageName = time().'_'.$imageName;
+
+        $image->move(public_path('/images'),$imageName);
+
+        $img = new Userprofile;
+        $img->user_id = Auth::user()->id;
+
+        $img->image = 'images/'.$imageName;
+
+        $img->save();
     }
 
     /**
