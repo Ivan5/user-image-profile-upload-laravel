@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Userprofile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 
 class UserprofileController extends Controller
 {
@@ -43,6 +44,10 @@ class UserprofileController extends Controller
         $image = request()->file('image');
         $imageName = $image->getClientOriginalName();
         $imageName = time().'_'.$imageName;
+        $thumbnail = $image->getClientOriginalName();
+        $thumbnail = time().'_thumbnail'.$thumbnail;
+
+        Image::make($image)->fit(100,100)->save(public_path('/images/').$thumbnail);
 
         $image->move(public_path('/images'),$imageName);
 
@@ -50,6 +55,7 @@ class UserprofileController extends Controller
         $img->user_id = Auth::user()->id;
 
         $img->image = 'images/'.$imageName;
+        $img->thumbnail = 'images/'.$thumbnail;
 
         $img->save();
     }
