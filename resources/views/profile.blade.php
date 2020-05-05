@@ -24,7 +24,7 @@
                       </div>
                       <div class="col-6 border-left border-success pb-4">
                         <h3>Profile Image</h3>
-                        <a href="#">Upload profile image</a>
+                        <a href="{{route('userprofile.create')}}">Upload profile image</a>
                       </div>
                       <div class="col-12 border-top border-success pt-3">
                         <h3>Uploaded Image</h3>
