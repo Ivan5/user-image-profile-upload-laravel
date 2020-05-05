@@ -17,6 +17,7 @@
                     </div>
                     <div class="col-8">
                         <h3>Profile Image Upload form</h3>
+                        <user-profile></user-profile>
                     </div>
                 </div>
             </div>
